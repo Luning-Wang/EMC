@@ -1,0 +1,11 @@
+#!/bin/bash
+iscsiadm -m node --target iqn --portal ioip1:3260 --logout
+iscsiadm -m node --target iqn --portal ioip2:3260 --logout
+iscsiadm -m discoverydb -p ioip1:3260 -t st -o delete
+iscsiadm -m discoverydb -p ioip2:3260 -t st -o delete
+iscsiadm -m discoverydb -p ioip1:3260 -t st -o new
+iscsiadm -m discoverydb -p ioip2:3260 -t st -o new
+iscsiadm -m discoverydb -p ioip1:3260 -t st --discover
+iscsiadm -m node --target iqn --portal ioip1:3260 --login
+iscsiadm -m node --target iqn --portal ioip2:3260 --login
+iscsiadm -m session -P 3
